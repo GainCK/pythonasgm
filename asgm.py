@@ -296,6 +296,11 @@ class GPACalculator:
 
         for subject, credit, grade, _ in self._rows:
             subj_name = subject.get().strip()
+
+            # ✅ check for missing subject name
+            if not subj_name:
+                messagebox.showerror("Error", "Missing subject name. Please fill in all subject names.")
+                return
             if subj_name in subject_names:
                 messagebox.showerror("Error", f"Duplicate subject: {subj_name}")
                 return
