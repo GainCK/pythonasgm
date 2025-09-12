@@ -294,41 +294,45 @@ class GPACalculator:
         total_points, total_credits = 0, 0
         subjects, contributions, subject_names = [], [], set()
 
-        try:
-            for subject, credit, grade, _ in self._rows:
-                subj_name = subject.get().strip()
-                if subj_name in subject_names:
-                    messagebox.showerror("Error", f"Duplicate subject: {subj_name}")
-                    return
-                subject_names.add(subj_name)
+        for subject, credit, grade, _ in self._rows:
+            subj_name = subject.get().strip()
+            if subj_name in subject_names:
+                messagebox.showerror("Error", f"Duplicate subject: {subj_name}")
+                return
+            subject_names.add(subj_name)
 
-                if not subj_name.replace(" ", "").isalpha():
-                    messagebox.showerror("Error", f"Subject names must contain only letters/spaces: {subj_name}")
-                    return
+            if not subj_name.replace(" ", "").isalpha():
+                messagebox.showerror("Error", f"Subject names must contain only letters/spaces: {subj_name}")
+                return
 
+            # ✅ safer conversion for credit input
+            try:
                 c = int(credit.get())
-                if c < 1 or c > 4:
-                    messagebox.showerror("Error", f"Credit for {subj_name} must be 1–4.")
-                    return
+            except ValueError:
+                messagebox.showerror("Error", f"Invalid credit input for {subj_name}. Must be an integer.")
+                return
 
-                g = self.grade_manager.get_grade_point(grade.get())
-                if g is None:
-                    messagebox.showerror("Error", f"Select a grade for {subj_name}")
-                    return
+            if c < 1 or c > 4:
+                messagebox.showerror("Error", f"Credit for {subj_name} must be 1–4.")
+                return
 
-                total_points += c * g
-                total_credits += c
-                subjects.append(subj_name)
-                contributions.append(c * g)
+            g = self.grade_manager.get_grade_point(grade.get())
+            if g is None:
+                messagebox.showerror("Error", f"Select a grade for {subj_name}")
+                return
 
-            gpa = total_points / total_credits if total_credits else 0
-            self.result_label.config(text=f"Your GPA: {gpa:.4f}")
-            self.credit_label.config(text=f"Total Credit Hours: {total_credits}")
+            total_points += c * g
+            total_credits += c
+            subjects.append(subj_name)
+            contributions.append(c * g)
 
-            self.show_pie_chart(subjects, contributions)
+        # ✅ valid even if GPA = 0.0000
+        gpa = total_points / total_credits if total_credits else 0
+        self.result_label.config(text=f"Your GPA: {gpa:.4f}")
+        self.credit_label.config(text=f"Total Credit Hours: {total_credits}")
 
-        except ValueError:
-            messagebox.showerror("Error", "Invalid credit input.")
+        self.show_pie_chart(subjects, contributions)
+
 
     def show_pie_chart(self, subjects, contributions):
         # 如果还没创建 fig 和 canvas，就创建一次
