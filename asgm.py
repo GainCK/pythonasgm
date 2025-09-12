@@ -310,7 +310,9 @@ class GPACalculator:
                 messagebox.showerror("Error", f"Subject names must contain only letters/spaces: {subj_name}")
                 return
 
-            # ✅ safer conversion for credit input
+            if not credit.get():
+                messagebox.showerror("Error", f"Missing credit hours for {subj_name}.")
+                return
             try:
                 c = int(credit.get())
             except ValueError:
