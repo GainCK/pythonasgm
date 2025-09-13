@@ -1,0 +1,61 @@
+{
+    "IT Note": [
+        {
+            "type": "note",
+            "title": "Operating System",
+            "content_blocks": [
+                {
+                    "type": "text",
+                    "content": "this is the os coding \n"
+                },
+                {
+                    "type": "text",
+                    "content": "\n"
+                },
+                {
+                    "type": "image",
+                    "path": "C:/Users/TUF/OneDrive/Pictures/Screenshots/Screenshot 2025-07-07 233543.png"
+                },
+                {
+                    "type": "text",
+                    "content": "\n"
+                },
+                {
+                    "type": "text",
+                    "content": "\n"
+                },
+                {
+                    "type": "text",
+                    "content": "the resorces is: "
+                },
+                {
+                    "type": "link",
+                    "url": "https://drive.google.com/drive/folders/1sijXY2jNUopD6-_YAhiUOgaqUbA82ztD"
+                },
+                {
+                    "type": "text",
+                    "content": "https://drive.google.com/drive/folders/1sijXY2jNUopD6-_YAhiUO"
+                },
+                {
+                    "type": "text",
+                    "content": "gaqUbA82ztD"
+                },
+                {
+                    "type": "text",
+                    "content": "\n"
+                },
+                {
+                    "type": "text",
+                    "content": "\n"
+                }
+            ],
+            "tags": [
+                "Practice",
+                "Note",
+                "Keyword",
+                "Tips"
+            ],
+            "link": []
+        }
+    ]
+}

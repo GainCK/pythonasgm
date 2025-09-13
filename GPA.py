@@ -280,13 +280,18 @@ class GPACalculator:
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
-    # Reset grades to default values
+        # Reset grades to default values
     def reset_grades(self, popup=None):
+        confirm = messagebox.askyesno("Confirm Reset", "Are you sure you want to reset the grade list to default values?")
+        if not confirm:
+            return  # user cancelled
+
         self.grade_manager.set_grades(self.grade_manager.DEFAULT_GRADES.copy())
         self.grade_manager.save_data()   # save to grades.txt
         self.show_grade_list()
         if popup:
             popup.destroy()
+        messagebox.showinfo("Grades Reset", "Grade list has been restored to default values.")
 
 
 
